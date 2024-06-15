@@ -17,7 +17,7 @@ const freshChat: GroupChat = {
 }
 
 //creat the groupchats object
-let groupchats = {
+let groupchats: Record<string, GroupChat> = {
     //group chat 1 (referenced by aol)
     aol: {
         messages: [],
@@ -41,7 +41,7 @@ app.get("/groupchats", (req, res) => {
 //on a specific groupchat id page, we are getting the group chat
 app.get("/groupchats/:id", (req, res) => {
     const id = req.params.id;
-    const groupchat = groupchats.[id];
+    const groupchat = groupchats[id];
 
     res.json(groupchat);
 })
@@ -49,13 +49,13 @@ app.get("/groupchats/:id", (req, res) => {
 //create a new group chat
 app.post("groupchats/:id", (req, res) => {
     const id = req.params.id;
-    const groupchat = groupchats.[id];
+    const groupchat = groupchats[id];
 
     if (groupchat) {
         return res.status(400).json({ error: 'go away' })
     }
 
-    groupschats[id] = { ...freshChat };
+    groupchats[id] = { ...freshChat };
 
     res.json(groupchats);
 })
